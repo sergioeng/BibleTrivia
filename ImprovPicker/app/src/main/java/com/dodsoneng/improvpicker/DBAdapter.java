@@ -13,16 +13,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 public class DBAdapter {
-	int id = 0;
-	
-	// Database Structure
-    public static final String ROWID = "row_id";
-    public static final String LANG_ID = "lang_id";
-    public static final String ITEM_ID = "item_id";
-    public static final String ITEM_TYPE = "item_type";
+
+    private static String _tag = Global.TAG + ".DBADAP";
+
+    // Database Structure
+    public static final String ROWID        = "row_id";
+    public static final String LANG_ID      = "lang_id";
+    public static final String ITEM_ID      = "item_id";
+    public static final String ITEM_TYPE    = "item_type";
     public static final String ITEM_CONTENT = "item_content";
 
-    
     private static final String TAG = "DBAdapter";
 
     private static final String DATABASE_NAME = "IMPRODB";
@@ -45,25 +45,32 @@ public class DBAdapter {
     public DBAdapter(Context ctx)
     {
         this.context = ctx;
+        Global.logcat(_tag, "constructor");
         DBHelper = new DatabaseHelper(context);
     }
 
     public static class DatabaseHelper extends SQLiteOpenHelper
     {
-        DatabaseHelper(Context context)
-        {
+        private static String _tag = DBAdapter._tag + ".DBHELP";
+
+        DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            Global.logcat(_tag, "constructor");
         }
 
         @Override
         public void onCreate(SQLiteDatabase db)
         {
+            Global.logcat(_tag, "onCreate()");
+
             db.execSQL(DATABASE_CREATE);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
         {
+            Global.logcat(_tag, "onUpgrade()");
+
         	/*
             Log.w(TAG, "Upgrading database from version " + oldVersion
                   + " to "
@@ -87,7 +94,9 @@ public class DBAdapter {
 	  */
 	 public DBAdapter open() throws SQLException
 	 {
-	     db = DBHelper.getWritableDatabase();
+         Global.logcat(_tag, "open()");
+
+         db = DBHelper.getWritableDatabase();
 	     return this;
 	 }
 	
@@ -96,7 +105,9 @@ public class DBAdapter {
 	  */
 	 public void close()
 	 {
-	     DBHelper.close();
+         Global.logcat(_tag, "close()");
+
+         DBHelper.close();
 	 }
 	 
 	 /***
@@ -104,13 +115,13 @@ public class DBAdapter {
 	  * without a level.
 	  * THIS FUNCTION IS DEPRICATED
 	  */
-	 public long insertRecord (int lang_id, int item_id, int item_type, String item_content)
+	 public long insertRecord (int item_id, int itemType, int langId, String itemContent)
 	 {
 	     ContentValues initialValues = new ContentValues();
-	     initialValues.put(LANG_ID, lang_id);
+	     initialValues.put(LANG_ID, langId);
 	     initialValues.put(ITEM_ID , item_id);
-	     initialValues.put(ITEM_TYPE , item_type);
-	     initialValues.put(ITEM_CONTENT , item_content);
+	     initialValues.put(ITEM_TYPE , itemType);
+	     initialValues.put(ITEM_CONTENT , itemContent);
 	     return db.insert(TABLE_NAME, null, initialValues);
 	 }
 	 
@@ -118,12 +129,28 @@ public class DBAdapter {
 	  * This function returns a count of the number of entries in the database.
 	  * @return int count
 	  */
-	 public int getNumOfRecords(int lang_id, int item_type)
+	 public int getNumOfRecords()
 	 {
-		 int count;
-	     Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_NAME +
-                                             " WHERE " + LANG_ID + "=" + lang_id +
-                                             " AND " + ITEM_TYPE + "=" + item_type, null);
+		 	int count;
+		    String query = "SELECT COUNT(*) FROM " + TABLE_NAME;
+
+		 Cursor cursor = db.rawQuery(query, null);
+		 Global.logcat(_tag, "getNumOfRecords(): ["+cursor+"]");
+		 cursor.moveToFirst();
+		 count = cursor.getInt(0);
+		 cursor.close();
+
+		 return count;
+	 }
+
+	 public int getNumOfRecords(int langId, int itemType)
+	 {
+		 	int count;
+		 	String query = "SELECT COUNT(*) FROM "+TABLE_NAME+" WHERE ("+LANG_ID+"="+langId+" AND "+ITEM_TYPE+"="+itemType+");";
+
+		 Global.logcat(_tag, "getNumOfRecords(): [" + query + "]");
+         assert db != null;
+	     Cursor cursor = db.rawQuery(query, null);
 	     cursor.moveToFirst();
 	     count = cursor.getInt(0);
          cursor.close();
@@ -135,20 +162,19 @@ public class DBAdapter {
 	  * This function returns the wrong answer for a question
 	  * based on the input of the rowID and the wrong answer number.
 	  */
-	 public String getItem (int lang_id, int item_id, int item_type)
+	 public String getItem (int langId, int itemId, int itemType)
 	 {
-		 String ret_value;
+		 	String retValue;
+			String	query = "SELECT "+ITEM_CONTENT+" FROM "+TABLE_NAME+" WHERE "+LANG_ID+"="+langId+" AND "+ITEM_ID+"="+itemId+" AND "+ITEM_TYPE+"="+itemType;
 
-		 Cursor cursor = db.rawQuery(
-                 "SELECT " + ITEM_CONTENT +
-                 " FROM "  + TABLE_NAME +
-                 " WHERE " + LANG_ID + "=" + lang_id +
-                 " AND "   + ITEM_TYPE + "=" + item_type +
-                 " AND "   + ITEM_TYPE + "=" + item_type, null);
+		 Global.logcat(_tag, "getItem(): ["+query+"]");
+
+		 Cursor cursor = db.rawQuery(query, null);
+
 		 cursor.moveToFirst();
-         ret_value = cursor.getString(0);
+		 retValue = cursor.getString(0);
          cursor.close();
-         return ret_value;
+         return retValue;
 	 
 	 }	 
 	 
@@ -157,18 +183,20 @@ public class DBAdapter {
 	  * between 1 and the number of entries in the database. 
 	  * @return int rand
 	  */
-	 public int getRandomItem(int lang_id, int item_type)
+	 public String getRandomItem(int langId, int itemType)
 	 {
-		 int rand = 0;
-		 id = getNumOfRecords(lang_id, item_type);
-		 
-		 while (rand == 0) {
-		    Random random = new Random();
-		    rand = random.nextInt(id);
+		 	int	numOfRecords;
+		 	int randId = 0;
+
+         numOfRecords = getNumOfRecords(langId, itemType);
+		 while (randId == 0) {
+             Random random = new Random();
+             randId = random.nextInt(numOfRecords);
 		 }
 
-		 return rand;
-	    	
+         Global.logcat(_tag, "getRandomItem(): numOfRecords="+numOfRecords+" randId="+randId);
+
+		 return getItem (langId, randId, itemType);
 	 }
 	 
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ImprovPicker</string>
+    <string name="app_name">AAAImprovPicker</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_admob">AdmobActivity</string>
 
@@ -21,6 +21,12 @@
     <string name="cbox_text9">"WHEN        "</string>
 
     <string name="button1">"FIRE"</string>
+
+
+    <!-- Messages displayed to user, as alert, error, etc -->
+    <string name="msgalert1">"Press again for more"</string>
+
+    <string name="msgerror1">"Database problem (logcat)"</string>
 
 
 </resources>
