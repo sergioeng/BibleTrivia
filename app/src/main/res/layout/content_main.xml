@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 1"
+                android:text=""
                 android:id="@+id/textView1"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -39,6 +39,8 @@
                 android:background="#D0D0D0"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textStyle="bold|italic"
                 android:singleLine="true" />
         </TableRow>
@@ -56,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 2"
+                android:text=""
                 android:id="@+id/textView2"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -65,6 +67,8 @@
                 android:background="#D0D0D0"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textStyle="bold|italic"
                 android:singleLine="true" />
         </TableRow>
@@ -82,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 3 - word1 word2 word3 word4 word5 word6 word7 word8 word9 word10"
+                android:text=""
                 android:id="@+id/textView3"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -110,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 4 - word1 word2 word3 word4 word5 word6 word7 word8 word9 word10"
+                android:text=""
                 android:id="@+id/textView4"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -137,7 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 5 - word1 word2 word3 word4 word5 word6 word7 word8 word9 word10"
+                android:text=""
                 android:id="@+id/textView5"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -164,7 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 6 - word1 word2 word3 word4 word5 word6 word7 word8 word9 word10"
+                android:text=""
                 android:id="@+id/textView6"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -191,7 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 7 - word1 word2 word3 word4 word5 word6 word7 word8 word9 word10"
+                android:text=""
                 android:id="@+id/textView7"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -218,7 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 8 - word1 word2 word3 word4 word5 word6 word7 word8 word9 word10"
+                android:text=""
                 android:id="@+id/textView8"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -245,7 +249,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text 9 - word1 word2 word3 word4 word5 word6 word7 word8 word9 word10"
+                android:text=""
                 android:id="@+id/textView9"
                 android:ellipsize="none"
                 android:scrollHorizontally="false"
@@ -259,13 +263,13 @@
                 android:textStyle="bold|italic"
                 android:singleLine="false" />
         </TableRow>
-
+<!--
         <TableRow android:paddingTop="10dp" android:paddingBottom="10dp" >
         <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#000000" android:layout_span="2"/>
         </TableRow>
 
         <Button android:id="@+id/button1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/button1" />
-
+-->
     </TableLayout>
 
 </RelativeLayout>
