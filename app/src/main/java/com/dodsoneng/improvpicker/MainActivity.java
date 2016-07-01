@@ -1,11 +1,17 @@
 package com.dodsoneng.improvpicker;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +19,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity  {
+
 
     private static String _tag = Global.TAG + ".MAINACT";
 
@@ -26,19 +35,33 @@ public class MainActivity extends AppCompatActivity {
     private int                     _itemType [] = new int [_NUM_OF_ITEMS];
 
     private DBAdapter       _db = null;
-    private int             _langId = Global.LANGID_ENG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+            String language;
+
         super.onCreate(savedInstanceState);
+
+        /// Initialize globals
+        _context = this;
+
+        /// Check whether there is a language already configured in SharedPreferences.
+        /// NO  --> get the device current locale and take the device language configuration
+        /// YES --> use the Shared Language configuration
+        String prefLanguage = Global.getLanguagePreference(_context);
+
+        if (prefLanguage.isEmpty()) {
+            Global.logcat (_tag, "onCreate(): there is no shared preference");
+
+            language = getDeviceLanguage ();
+            Global.logcat (_tag, "onCreate(): initializing shared preference to current device language ["+language + "]");
+            Global.setLanguagePreference (_context, language);
+        }
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 ;
-        int i ;
-        /// Initialize globals
-        _context = this;
-
         _fab = (FloatingActionButton) findViewById(R.id.fab); assert _fab != null;
 
         _itemType [0] = Global.TYPEID_EMOTION  ;
@@ -71,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         _textView [7] = (TextView) findViewById(R.id.textView8);
         _textView [8] = (TextView) findViewById(R.id.textView9);
 
-        for (i = 0; i < _NUM_OF_ITEMS; i++) {
+        for (int i = 0; i < _NUM_OF_ITEMS; i++) {
             _checkBox [i].setTag(_textView [i].getId());    // save the textView ID correspondent
             _textView [i].setTag(_itemType [i]);    // save the item type correspondent
         }
@@ -94,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -107,18 +131,111 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent();
+            intent.setClassName(this, "com.dodsoneng.improvpicker.SettingsActivity");
+            startActivity(intent);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String language = Global.getLanguagePreference(_context);
 
-    public void updateTextViews () {
+        if (language.equals(Locale.getDefault().getLanguage()) == false) {
+            Global.logcat(_tag, "onResume(): preference language is different from locale, setting locale ");
+            Global.setLocale(this, language);
+        }
+/*
+        Global.logcat(_tag, "onResume(): Shared Preference lang: " + language);
+        Global.logcat(_tag, "            Default locale lang   : " + Locale.getDefault().getLanguage());
+        Global.logcat(_tag, "            Config locale lang    : " + getResources().getConfiguration().locale.getLanguage());
+*/
+        if (Global.hasLocaleChanged(_context)) {
+            Global.logcat(_tag, "onResume(): locale has changed, restart views");
+            Global.resetHasLocaleChanged(_context);
+            //restartActivity();
+            setContentView(R.layout.activity_main);
+            recreate();
+        }
+
+    }
+
+    private void restartActivity() {
+        Global.logcat(_tag, "restartActivity(): ");
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
+
+
+    /// --------------------------------------------------------------------------------------------
+    /// METHODS
+    /// --------------------------------------------------------------------------------------------
+
+    /// This method gets the device configuration and returns the current language configured.
+    /// (English, Spanish, Portuguese, etc
+    ///
+    private String getDeviceLanguage () {
+        Locale current = getResources().getConfiguration().locale;
+        String  lang = current.getLanguage();
+
+        Global.logcat (_tag, "getDeviceLanguage(): DisplayLanguage()=" + current.getDisplayLanguage() + " Language()=" + current.getLanguage() + " Country()=" + current.getCountry());
+        return lang;
+
+        /** TO BE DELETED
+        for (int i=0; i < _langValues.length ; i ++ ) {
+            if (_langValues [i].equals(lang)) {
+                return _langEntries [i];
+            }
+        }
+
+        Global.logcat (_tag, "("+lang+") not found in _langValues");
+
+        return null;
+         **/
+    }
+
+
+/*** TO BE DELETED
+    /// This method look at the shared preferences and gets the current configured language
+    /// and then returns the index of the language according to what is defined in
+    /// strings/menu_language_entries
+    /// (English, Spanish, Portuguese, etc
+    ///
+    private int getLanguageId () {
+
+        String language = Global.getSharedPreference(_context, _prefLanguageKey);
+
+        /// Set the language ID based on Preference Settings
+
+        for (int i=0; i < _langEntries.length ; i ++ ) {
+            if (_langEntries [i].equals(language)) {
+                Global.logcat (_tag, "getLanguageId(): entry=[" + language + "] id=" + i+1 );
+                return i+1;
+            }
+        }
+
+        Global.logcat (_tag, "("+language+") not found in _langArray");
+
+        return -1;
+    }
+***/
+
+
+    /// This method updates the main screen with new value takne randomly from database.
+    /// Only for the item that has the check box setted.
+    ///
+    private void updateTextViews () {
             int i;
+            int langId = Global.getLanguageId(_context);
+
         for (i = 0; i < _NUM_OF_ITEMS; i++) {
             if (_checkBox [i].isChecked()) {
-                _textView [i].setText(_db.getRandomItem(_langId, _itemType [i]));
+                _textView [i].setText(_db.getRandomItem(langId, _itemType [i]));
                 _textView [i].setBackgroundColor(_context.getResources().getColor(R.color.lightGrey));
             } else {
                 _textView [i].setText(" ");
@@ -129,9 +246,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /// -----------------------------------------------------------------------------
+    /// --------------------------------------------------------------------------------------------
     /// LISTENERS
-    ///------------------------------------------------------------------------------
+    ///---------------------------------------------------------------------------------------------
     public void addListenerOnFab () {
         if (_fab != null) {
             _fab.setOnClickListener(new View.OnClickListener() {
@@ -148,23 +265,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addListenerOnChkBox() {
+
         for (int i = 0; i < _NUM_OF_ITEMS; i++) {
-
-
             _checkBox[i].setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-//                    TextView t = (TextView) findViewById(v.getId()+1);
                     TextView t = (TextView) findViewById((int)(v.getTag()));
+                    int langId = Global.getLanguageId(_context);
 
                     //is chkIos checked?
                     if (((CheckBox) v).isChecked()) {
-//                        Toast.makeText(_context, "Bro, try Android :)", Toast.LENGTH_LONG).show();
-//                        t.setText(_db.getRandomItem(_langId, _itemType [_ii]));
+
                         int itemType = (int) (t.getTag());
 Global.logcat(_tag, "_checkBox=" + v.getId() + " textView=" + t.getId() + " ITEM_TYPE=" + itemType);
-                        t.setText(_db.getRandomItem(_langId, itemType));
+                        t.setText(_db.getRandomItem(langId, itemType));
                         t.setBackgroundColor(_context.getResources().getColor(R.color.lightGrey));
                     } else {
                         t.setText(" ");

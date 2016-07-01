@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">AAAImprovPicker</string>
+    <string name="action_settings">Configuração</string>
+    <string name="title_activity_admob">AdmobActivity</string>
+
+    <!-- -
+        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="cbox_text1">"EMOÇÃO"</string>
+    <string name="cbox_text2">"GENERO"</string>
+    <string name="cbox_text3">"PERSONAGEM"</string>
+    <string name="cbox_text4">"LOCAL"</string>
+    <string name="cbox_text5">"AMBIENTE"</string>
+    <string name="cbox_text6">"EVENTO"</string>
+    <string name="cbox_text7">"ADJETIVO"</string>
+    <string name="cbox_text8">"AÇÃO"</string>
+    <string name="cbox_text9">"QUANDO"</string>
+
+    <!-- Messages displayed to user, as alert, error, etc -->
+    <string name="msgalert1">"Clique novamente"</string>
+
+    <string name="msgerror1">"Problema banco de dados (logcat)"</string>
+    <!-- Languages Configuration -->
+    <string-array name="menu_language_entries">
+        <item>Ingles</item>
+        <item>Espanhol</item>
+        <item>Portugues</item>
+    </string-array>
+
+    <string-array name="menu_language_values">
+        <item>en</item>
+        <item>es</item>
+        <item>pt</item>
+    </string-array>
+
+
+    <!-- Strings related to settings (preferences) -->
+    <string name="title_activity_settings">Preference</string>
+
+    <!--  -->
+    <string name="pref_language_key">pref_language</string>
+    <string name="pref_language_title">Idioma</string>
+
+    <string name="pref_donation_key">pref_donation</string>
+    <string name="pref_donation_title">Doação</string>
+    <string name="pref_donation_summary">Nos ajude a melhorar esse app</string>
+
+
+</resources>

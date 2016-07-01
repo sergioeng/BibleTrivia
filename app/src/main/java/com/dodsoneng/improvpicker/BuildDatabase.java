@@ -56,80 +56,81 @@ public class BuildDatabase {
 
 	private void insertEmotions (int typeId) {
 		Global.logcat(_tag, "insertEmotions()");
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_ENG,	"horny"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_ENG,	"hate"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_ENG,	"passion"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_ENG,	"cuteness"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_ENG,	"scorn"	);
+		_db.insertRecord(	1	,	typeId,	1,	"horny"	);
+		_db.insertRecord(	2	,	typeId,	1,	"hate"	);
+		_db.insertRecord(	3	,	typeId,	1,	"passion"	);
+		_db.insertRecord(	4	,	typeId,	1,	"cuteness"	);
+		_db.insertRecord(	5	,	typeId,	1,	"scorn"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_POR,	"tesão"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_POR,	"ódio"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_POR,	"paixão"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_POR,	"fofura"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_POR,	"desprezo"	);
+		_db.insertRecord(	1	,	typeId,	2,	"caliente"	);
+		_db.insertRecord(	2	,	typeId,	2,	"odio"	);
+		_db.insertRecord(	3	,	typeId,	2,	"pasión"	);
+		_db.insertRecord(	4	,	typeId,	2,	"monería"	);
+		_db.insertRecord(	5	,	typeId,	2,	"desdén"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_SPA,	"caliente"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_SPA,	"odio"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_SPA,	"pasión"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_SPA,	"monería"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_SPA,	"desdén"	);
+		_db.insertRecord(	1	,	typeId,	3,	"tesão"	);
+		_db.insertRecord(	2	,	typeId,	3,	"ódio"	);
+		_db.insertRecord(	3	,	typeId,	3,	"paixão"	);
+		_db.insertRecord(	4	,	typeId,	3,	"fofura"	);
+		_db.insertRecord(	5	,	typeId,	3,	"desprezo"	);
+
 	}
 	private void insertGenres (int typeId) {
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_ENG,	"western"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_ENG,	"terror"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_ENG,	"musical"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_ENG,	"soap opera"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_ENG,	"cartoon"	);
+		_db.insertRecord(	1	,	typeId,	1,	"western"	);
+		_db.insertRecord(	2	,	typeId,	1,	"terror"	);
+		_db.insertRecord(	3	,	typeId,	1,	"musical"	);
+		_db.insertRecord(	4	,	typeId,	1,	"soap opera"	);
+		_db.insertRecord(	5	,	typeId,	1,	"cartoon"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_POR,	"faroeste"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_POR,	"terror"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_POR,	"musical"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_POR,	"novela"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_POR,	"desenho animado"	);
+		_db.insertRecord(	1	,	typeId,	3,	"faroeste"	);
+		_db.insertRecord(	2	,	typeId,	3,	"terror"	);
+		_db.insertRecord(	3	,	typeId,	3,	"musical"	);
+		_db.insertRecord(	4	,	typeId,	3,	"novela"	);
+		_db.insertRecord(	5	,	typeId,	3,	"desenho animado"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_SPA,	"wild west"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_SPA,	"odio"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_SPA,	"pasión"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_SPA,	"telenovela"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_SPA,	"dibujos animados"	);
+		_db.insertRecord(	1	,	typeId,	2,	"wild west"	);
+		_db.insertRecord(	2	,	typeId,	2,	"odio"	);
+		_db.insertRecord(	3	,	typeId,	2,	"pasión"	);
+		_db.insertRecord(	4	,	typeId,	2,	"telenovela"	);
+		_db.insertRecord(	5	,	typeId,	2,	"dibujos animados"	);
 	}
 	private void insertCharacters (int typeId) {
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_ENG,	"translator"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_ENG,	"driver"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_ENG,	"soldier"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_ENG,	"cook"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_ENG,	"car seller"	);
+		_db.insertRecord(	1	,	typeId,	1,	"translator"	);
+		_db.insertRecord(	2	,	typeId,	1,	"driver"	);
+		_db.insertRecord(	3	,	typeId,	1,	"soldier"	);
+		_db.insertRecord(	4	,	typeId,	1,	"cook"	);
+		_db.insertRecord(	5	,	typeId,	1,	"car seller"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_POR,	"tradutor"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_POR,	"motorista"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_POR,	"soldado"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_POR,	"cozinheiro"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_POR,	"vendedor de carros"	);
+		_db.insertRecord(	1	,	typeId,	3,	"tradutor"	);
+		_db.insertRecord(	2	,	typeId,	3,	"motorista"	);
+		_db.insertRecord(	3	,	typeId,	3,	"soldado"	);
+		_db.insertRecord(	4	,	typeId,	3,	"cozinheiro"	);
+		_db.insertRecord(	5	,	typeId,	3,	"vendedor de carros"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_SPA,	"traductor"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_SPA,	"conductor"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_SPA,	"soldado"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_SPA,	"cocinero"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_SPA,	"vendedor de coches"	);
+		_db.insertRecord(	1	,	typeId,	2,	"traductor"	);
+		_db.insertRecord(	2	,	typeId,	2,	"conductor"	);
+		_db.insertRecord(	3	,	typeId,	2,	"soldado"	);
+		_db.insertRecord(	4	,	typeId,	2,	"cocinero"	);
+		_db.insertRecord(	5	,	typeId,	2,	"vendedor de coches"	);
 	}
 	private void insertPlaces (int typeId) {
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_ENG,	"beach"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_ENG,	"office"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_ENG,	"kitchen"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_ENG,	"supermarket"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_ENG,	"bus"	);
+		_db.insertRecord(	1	,	typeId,	1,	"beach"	);
+		_db.insertRecord(	2	,	typeId,	1,	"office"	);
+		_db.insertRecord(	3	,	typeId,	1,	"kitchen"	);
+		_db.insertRecord(	4	,	typeId,	1,	"supermarket"	);
+		_db.insertRecord(	5	,	typeId,	1,	"bus"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_POR,	"praia"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_POR,	"escritório"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_POR,	"cozinha"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_POR,	"supermercado"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_POR,	"onibus"	);
+		_db.insertRecord(	1	,	typeId,	3,	"praia"	);
+		_db.insertRecord(	2	,	typeId,	3,	"escritório"	);
+		_db.insertRecord(	3	,	typeId,	3,	"cozinha"	);
+		_db.insertRecord(	4	,	typeId,	3,	"supermercado"	);
+		_db.insertRecord(	5	,	typeId,	3,	"onibus"	);
 
-		_db.insertRecord(	1	,	typeId,	Global.LANGID_SPA,	"playa"	);
-		_db.insertRecord(	2	,	typeId,	Global.LANGID_SPA,	"oficina"	);
-		_db.insertRecord(	3	,	typeId,	Global.LANGID_SPA,	"cocina"	);
-		_db.insertRecord(	4	,	typeId,	Global.LANGID_SPA,	"supermercado"	);
-		_db.insertRecord(	5	,	typeId,	Global.LANGID_SPA,	"autobus"	);
+		_db.insertRecord(	1	,	typeId,	2,	"playa"	);
+		_db.insertRecord(	2	,	typeId,	2,	"oficina"	);
+		_db.insertRecord(	3	,	typeId,	2,	"cocina"	);
+		_db.insertRecord(	4	,	typeId,	2,	"supermercado"	);
+		_db.insertRecord(	5	,	typeId,	2,	"autobus"	);
 
 
 	}

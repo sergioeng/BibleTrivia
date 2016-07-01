@@ -20,13 +20,58 @@
     <string name="cbox_text8">"ACTION      "</string>
     <string name="cbox_text9">"WHEN        "</string>
 
-    <string name="button1">"FIRE"</string>
-
-
     <!-- Messages displayed to user, as alert, error, etc -->
     <string name="msgalert1">"Press again for more"</string>
 
     <string name="msgerror1">"Database problem (logcat)"</string>
+
+    <!-- Languages Configuration -->
+    <string-array name="menu_language_entries">
+        <item>English</item>
+        <item>Spanish</item>
+        <item>Portuguese</item>
+    </string-array>
+
+    <string-array name="menu_language_values">
+        <item>en</item>
+        <item>es</item>
+        <item>pt</item>
+    </string-array>
+
+
+    <!-- Strings related to settings (preferences) -->
+    <string name="title_activity_settings">Settings</string>
+    <string name="locale_has_changed_key">lacale_has_changed</string>
+
+    <!--  -->
+    <string name="pref_language_key">pref_language</string>
+    <string name="pref_language_title">Language</string>
+
+    <string name="pref_donation_key">pref_donation</string>
+    <string name="pref_donation_title">Donation</string>
+    <string name="pref_donation_summary">Help developing this app</string>
+
+    <string-array name="donationEntries">
+        <item>NOT NOW</item>
+        <item>$ 1</item>
+        <item>$ 2</item>
+        <item>$ 5</item>
+        <item>$ 10</item>
+        <item>$ 20</item>
+        <item>$ 50</item>
+        <item>$ 100</item>
+    </string-array>
+
+    <string-array name="donationValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>0</item>
+    </string-array>
 
 
 </resources>

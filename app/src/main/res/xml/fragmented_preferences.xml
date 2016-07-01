@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ListPreference
+            android:key="@string/pref_language_key"
+            android:title="@string/pref_language_title"
+            android:summary=""
+            android:entries="@array/menu_language_entries"
+            android:entryValues="@array/menu_language_values"
+            android:dialogTitle="@string/pref_language_title" />
+
+        <ListPreference
+            android:key="@string/pref_donation_key"
+            android:title="@string/pref_donation_title"
+            android:summary="@string/pref_donation_summary"
+            android:entries="@array/donationEntries"
+            android:entryValues="@array/donationValues"
+            android:dialogTitle="@string/pref_donation_title" />
+
+</PreferenceScreen>
