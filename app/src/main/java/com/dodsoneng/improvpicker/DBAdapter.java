@@ -14,8 +14,9 @@ import android.util.Log;
 
 public class DBAdapter {
 
-    private static String _tag = Global.TAG + ".DBADAP";
+    private static String _tag = Global.TAG + ".DBADAPT";
 
+	public static boolean DETAIL=false;
     // Database Structure
     public static final String ROWID        = "row_id";
     public static final String LANG_ID      = "lang_id";
@@ -135,7 +136,7 @@ public class DBAdapter {
 		    String query = "SELECT COUNT(*) FROM " + TABLE_NAME;
 
 		 Cursor cursor = db.rawQuery(query, null);
-		 Global.logcat(_tag, "getNumOfRecords(): ["+cursor+"]");
+		 Global.logcat(_tag, "getNumOfRecords(): ["+query+"]", DETAIL);
 		 cursor.moveToFirst();
 		 count = cursor.getInt(0);
 		 cursor.close();
@@ -148,7 +149,7 @@ public class DBAdapter {
 		 	int count;
 		 	String query = "SELECT COUNT(*) FROM "+TABLE_NAME+" WHERE ("+LANG_ID+"="+langId+" AND "+ITEM_TYPE+"="+itemType+");";
 
-		 Global.logcat(_tag, "getNumOfRecords(): [" + query + "]");
+		 Global.logcat(_tag, "getNumOfRecords(): [" + query + "]", DETAIL);
          assert db != null;
 	     Cursor cursor = db.rawQuery(query, null);
 	     cursor.moveToFirst();
@@ -167,7 +168,7 @@ public class DBAdapter {
 		 	String retValue;
 			String	query = "SELECT "+ITEM_CONTENT+" FROM "+TABLE_NAME+" WHERE "+LANG_ID+"="+langId+" AND "+ITEM_ID+"="+itemId+" AND "+ITEM_TYPE+"="+itemType;
 
-		 Global.logcat(_tag, "getItem(): ["+query+"]");
+		 Global.logcat(_tag, "getItem(): ["+query+"]", DETAIL);
 
 		 Cursor cursor = db.rawQuery(query, null);
 
@@ -194,7 +195,7 @@ public class DBAdapter {
              randId = random.nextInt(numOfRecords);
 		 }
 
-         Global.logcat(_tag, "getRandomItem(): numOfRecords="+numOfRecords+" randId="+randId);
+         Global.logcat(_tag, "getRandomItem(): numOfRecords="+numOfRecords+" randId="+randId, DETAIL);
 
 		 return getItem (langId, randId, itemType);
 	 }

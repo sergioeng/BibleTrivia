@@ -61,8 +61,12 @@ public class Global {
 
 	public static void logcat (String tag, String text) 
 	{
-    	Log.d (tag, text);
+        Log.d (tag, text);
 	}
+    public static void logcat (String tag, String text, boolean print)
+    {
+        if (print) logcat (tag, text);
+    }
 	public static void logcat (String tag, int id)
 	{
 		Log.d (tag, "ID="+ id);
