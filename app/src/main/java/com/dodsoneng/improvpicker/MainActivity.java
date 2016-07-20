@@ -41,12 +41,14 @@ MainActivity extends AppCompatActivity  {
     private DBAdapter       _db = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+    //public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+    protected void onCreate(Bundle savedInstanceState) {
             String language;
 
         Global.logcat (_tag, "onCreate(): begin");
 
-        super.onCreate(savedInstanceState, persistentState);
+        //super.onCreate(savedInstanceState, persistentState);
+        super.onCreate(savedInstanceState);
 
         /// Initialize globals
         _context = this;
@@ -76,7 +78,7 @@ MainActivity extends AppCompatActivity  {
             if (language.equals(Locale.getDefault().getLanguage()) == false) {
                 Global.logcat(_tag, "onCreate(): preference language is different from locale, setting locale ");
                 Global.setLocale(this, language);
-                Global.logcat (_tag, "onCreate(): end doing nothing so far. onResume() will trigger the recriation");
+                Global.logcat (_tag, "onCreate(): end doing nothing so far. 'onResume()' will trigger the recriation");
                 return;
             }
 
@@ -123,7 +125,7 @@ MainActivity extends AppCompatActivity  {
         for (int i = 0; i < _NUM_OF_ITEMS; i++) {
             _checkBox [i].setTag(_textView [i].getId());    // save the textView ID correspondent
             _textView [i].setTag(_itemType [i]);    // save the item type correspondent
-            _text [i] = " ";
+            _text [i] = "";
             _bgcolor [i] = _context.getResources().getColor(R.color.white);
         }
 
@@ -250,10 +252,9 @@ MainActivity extends AppCompatActivity  {
             int langId = Global.getLanguageId(_context);
 
         for (i = 0; i < _NUM_OF_ITEMS; i++) {
-            if (_checkBox [i].isChecked()) {
+            if (_checkBox [i].isChecked() == false) {
                 _text[i] = _db.getRandomItem(langId, _itemType [i]);
                 _bgcolor [i] = _context.getResources().getColor(R.color.lightGrey);
-
             }
             _textView [i].setText(_text[i]);
             _textView [i].setBackgroundColor( _bgcolor [i]);
@@ -294,20 +295,18 @@ MainActivity extends AppCompatActivity  {
 
                     //is chkIos checked?
                     if (((CheckBox) v).isChecked()) {
-                        _text[i] = _db.getRandomItem(langId, itemType);
+                        _bgcolor [i] = _context.getResources().getColor(R.color.white);
+                        _textView [itemType].setText(_text[itemType]);
+                    }
+                    else
+                    {
+//                        _text[i] = _db.getRandomItem(langId, itemType);
                         _bgcolor [i] = _context.getResources().getColor(R.color.lightGrey);
 
                         Global.logcat(_tag, "_checkBox=" + v.getId() + " textView=" + t.getId() + " ITEM_TYPE=" + itemType);
                         _textView [i].setText(_text[i]);
-                        t.setBackgroundColor(_bgcolor [i]);
                     }
-/* TO BE DELETED SOON
-                    else {
-
-                        _textView [itemType].setText(_text[itemType]);
-                        t.setBackgroundColor(_context.getResources().getColor(R.color.white));
-                    }
-*/
+                    t.setBackgroundColor(_bgcolor [i]);
                 }
 
             });
