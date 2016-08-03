@@ -190,6 +190,9 @@ public class DBAdapter {
 		 	int randId = 0;
 
          numOfRecords = getNumOfRecords(langId, itemType);
+		 if (numOfRecords <= 0 )
+			 return "----";
+
 		 while (randId == 0) {
              Random random = new Random();
              randId = random.nextInt(numOfRecords);
