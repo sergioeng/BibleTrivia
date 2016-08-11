@@ -19,7 +19,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CheckBox;
+import android.widget.ToggleButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +34,10 @@ public class PickerActivity extends AppCompatActivity {
     private FloatingActionButton    _fab;
     private static int              _NUM_OF_ITEMS = 9;
 
-    private CheckBox                _checkBox [] = new CheckBox[_NUM_OF_ITEMS] ;
+    private ToggleButton                _toggleButton [] = new ToggleButton[_NUM_OF_ITEMS] ;
     private TextView                _textView [] = new TextView [_NUM_OF_ITEMS] ;
     private int                     _itemType [] = new int [_NUM_OF_ITEMS];
     private String                  _text []     = new String [_NUM_OF_ITEMS] ;
-    private int                     _bgcolor []  = new int [_NUM_OF_ITEMS] ;
 
     private DBAdapter       _db = null;
 
@@ -79,15 +78,15 @@ public class PickerActivity extends AppCompatActivity {
         _itemType [7] = Global.TYPEID_ACTION   ;
         _itemType [8] = Global.TYPEID_MOMENT   ;
 
-        _checkBox [0] = (CheckBox) findViewById(R.id.checkBox1);
-        _checkBox [1] = (CheckBox) findViewById(R.id.checkBox2);
-        _checkBox [2] = (CheckBox) findViewById(R.id.checkBox3);
-        _checkBox [3] = (CheckBox) findViewById(R.id.checkBox4);
-        _checkBox [4] = (CheckBox) findViewById(R.id.checkBox5);
-        _checkBox [5] = (CheckBox) findViewById(R.id.checkBox6);
-        _checkBox [6] = (CheckBox) findViewById(R.id.checkBox7);
-        _checkBox [7] = (CheckBox) findViewById(R.id.checkBox8);
-        _checkBox [8] = (CheckBox) findViewById(R.id.checkBox9);
+        _toggleButton [0] = (ToggleButton) findViewById(R.id.toggleButton1);
+        _toggleButton [1] = (ToggleButton) findViewById(R.id.toggleButton2);
+        _toggleButton [2] = (ToggleButton) findViewById(R.id.toggleButton3);
+        _toggleButton [3] = (ToggleButton) findViewById(R.id.toggleButton4);
+        _toggleButton [4] = (ToggleButton) findViewById(R.id.toggleButton5);
+        _toggleButton [5] = (ToggleButton) findViewById(R.id.toggleButton6);
+        _toggleButton [6] = (ToggleButton) findViewById(R.id.toggleButton7);
+        _toggleButton [7] = (ToggleButton) findViewById(R.id.toggleButton8);
+        _toggleButton [8] = (ToggleButton) findViewById(R.id.toggleButton9);
 
         _textView [0] = (TextView) findViewById(R.id.textView1);
         _textView [1] = (TextView) findViewById(R.id.textView2);
@@ -100,10 +99,9 @@ public class PickerActivity extends AppCompatActivity {
         _textView [8] = (TextView) findViewById(R.id.textView9);
 
         for (int i = 0; i < _NUM_OF_ITEMS; i++) {
-            _checkBox [i].setTag(_textView [i].getId());    // save the textView ID correspondent
+            _toggleButton [i].setTag(_textView [i].getId());    // save the textView ID correspondent
             _textView [i].setTag(_itemType [i]);    // save the item type correspondent
             _text [i] = "";
-            _bgcolor [i] = _context.getResources().getColor(R.color.white);
         }
 
 
@@ -115,7 +113,7 @@ public class PickerActivity extends AppCompatActivity {
 
         /// Add listener to check boxes
         addListenerOnFab ();
-        addListenerOnChkBox();
+        addListenerOnToggleButton();
 
         Global.logcat (_tag, "onCreate(): end");
 
@@ -229,12 +227,10 @@ public class PickerActivity extends AppCompatActivity {
             int langId = Global.getLanguageId(_context);
 
         for (i = 0; i < _NUM_OF_ITEMS; i++) {
-            if (_checkBox [i].isChecked() == false) {
+            if (_toggleButton [i].isChecked()) {
                 _text[i] = _db.getRandomItem(langId, _itemType [i]);
-                _bgcolor [i] = _context.getResources().getColor(R.color.lightGrey);
             }
             _textView [i].setText(_text[i]);
-            _textView [i].setBackgroundColor( _bgcolor [i]);
         }
 
     }
@@ -258,10 +254,10 @@ public class PickerActivity extends AppCompatActivity {
         }
     }
 
-    public void addListenerOnChkBox() {
+    public void addListenerOnToggleButton() {
 
         for (int i = 0; i < _NUM_OF_ITEMS; i++) {
-            _checkBox[i].setOnClickListener(new View.OnClickListener() {
+            _toggleButton[i].setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
@@ -271,19 +267,20 @@ public class PickerActivity extends AppCompatActivity {
                     int i = itemType -1;
 
                     //is chkIos checked?
-                    if (((CheckBox) v).isChecked()) {
-                        _bgcolor [i] = _context.getResources().getColor(R.color.white);
-                        _textView [itemType].setText(_text[itemType]);
+                    if (((ToggleButton) v).isChecked()) {
+                        Global.logcat(_tag, "_toggleButton=" + v.getId() + " textView=" + t.getId() + " ITEM_TYPE=" + itemType);
+                        ((ToggleButton) v).setTextColor(_context.getResources().getColor(R.color.black));
+                        _textView [i].setText(_text[i]);
+                        _textView [i].setTextColor(_context.getResources().getColor(android.R.color.holo_blue_bright));
+                        ((ToggleButton) v).setBackgroundColor(_context.getResources().getColor(android.R.color.background_dark));
                     }
                     else
                     {
-//                        _text[i] = _db.getRandomItem(langId, itemType);
-                        _bgcolor [i] = _context.getResources().getColor(R.color.lightGrey);
-
-                        Global.logcat(_tag, "_checkBox=" + v.getId() + " textView=" + t.getId() + " ITEM_TYPE=" + itemType);
                         _textView [i].setText(_text[i]);
+                        _textView [i].setTextColor(_context.getResources().getColor(android.R.color.holo_orange_light));
+                        ((ToggleButton) v).setTextColor(_context.getResources().getColor(android.R.color.holo_orange_light));
+                        ((ToggleButton) v).setBackground(_context.getResources().getColor(android.R.color.background_light));
                     }
-                    t.setBackgroundColor(_bgcolor [i]);
                 }
 
             });

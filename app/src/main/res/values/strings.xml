@@ -12,13 +12,13 @@
 
     <string name="cbox_text1">"EMOTION"</string>
     <string name="cbox_text2">"GENRE"</string>
-    <string name="cbox_text3">"CHARACTER   "</string>
-    <string name="cbox_text4">"PLACE       "</string>
-    <string name="cbox_text5">"ENVIRONMENT "</string>
-    <string name="cbox_text6">"EVENT       "</string>
-    <string name="cbox_text7">"ADJECTIVE   "</string>
-    <string name="cbox_text8">"ACTION      "</string>
-    <string name="cbox_text9">"WHEN        "</string>
+    <string name="cbox_text3">"CHARACTER"</string>
+    <string name="cbox_text4">"PLACE"</string>
+    <string name="cbox_text5">"ENVIRONMENT"</string>
+    <string name="cbox_text6">"EVENT"</string>
+    <string name="cbox_text7">"ADJECTIVE"</string>
+    <string name="cbox_text8">"ACTION"</string>
+    <string name="cbox_text9">"WHEN"</string>
 
     <!-- Messages displayed to user, as alert, error, etc -->
     <string name="msgalert1">"Press again for more"</string>
