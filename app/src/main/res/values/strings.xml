@@ -1,27 +1,28 @@
 <resources>
-    <string name="app_name">AAAImprovPicker</string>
+    <string name="app_name">Improv Tools</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_admob">AdmobActivity</string>
 
-    <string name="hello_world">Hello world!</string>
     <!-- -
+    <string name="hello_world">Hello world!</string>
         This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
-    <string name="cbox_text1">"EMOTION"</string>
-    <string name="cbox_text2">"GENRE"</string>
-    <string name="cbox_text3">"CHARACTER"</string>
+    <string name="cbox_text1">"CHARACTER"</string>
+    <string name="cbox_text2">"EMOTION"</string>
+    <string name="cbox_text3">"GENRE"</string>
     <string name="cbox_text4">"PLACE"</string>
-    <string name="cbox_text5">"ENVIRONMENT"</string>
-    <string name="cbox_text6">"EVENT"</string>
-    <string name="cbox_text7">"ADJECTIVE"</string>
+    <string name="cbox_text5">"OBJECT"</string>
+    <string name="cbox_text6">"ADJECTIVE"</string>
+    <string name="cbox_text7">"EVENT"</string>
     <string name="cbox_text8">"ACTION"</string>
     <string name="cbox_text9">"WHEN"</string>
 
     <!-- Messages displayed to user, as alert, error, etc -->
-    <string name="msgalert1">"Press again for more"</string>
+    <string name="msgalert1">"Press again"</string>
+    <string name="msgalert2">"Loading data..."</string>
 
     <string name="msgerror1">"Database problem (logcat)"</string>
 

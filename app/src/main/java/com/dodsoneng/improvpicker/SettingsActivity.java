@@ -50,6 +50,8 @@ public class SettingsActivity extends PreferenceActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Global.logcat (_tag, "onCreate()");
+
         super.onCreate(savedInstanceState);
         _context = this;
 
@@ -69,6 +71,7 @@ public class SettingsActivity extends PreferenceActivity {
 
     private void checkValues(String where)
     {
+        Global.logcat (_tag, "checkValues()");
 
         /// Substituir for Global methods
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -118,6 +121,8 @@ public class SettingsActivity extends PreferenceActivity {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
+            Global.logcat (_tag, "onCreate()");
+
             super.onCreate(savedInstanceState);
 
             _context = this.getActivity();
@@ -144,6 +149,7 @@ public class SettingsActivity extends PreferenceActivity {
         }
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            Global.logcat (_tag, "onSharedPreferenceChanged()");
 
             if (key.equals(_prefLanguageKey)) {
 
@@ -161,6 +167,8 @@ public class SettingsActivity extends PreferenceActivity {
 
         }
         private void restartActivity() {
+            Global.logcat (_tag, "restartActivity()");
+
             Intent intent = this.getActivity().getIntent();
             this.getActivity().finish();
             startActivity(intent);
@@ -168,6 +176,8 @@ public class SettingsActivity extends PreferenceActivity {
 
         @Override
         public void onResume() {
+            Global.logcat (_tag, "onResume()");
+
             super.onResume();
             getPreferenceScreen()
                     .getSharedPreferences()
@@ -176,6 +186,8 @@ public class SettingsActivity extends PreferenceActivity {
 
         @Override
         public void onPause() {
+            Global.logcat (_tag, "onPause()");
+
             super.onPause();
             getPreferenceScreen()
                     .getSharedPreferences()

@@ -28,7 +28,7 @@ public class Global {
 	public static int TYPEID_GENRE     = 2;
 	public static int TYPEID_CHARACTER = 3;
 	public static int TYPEID_PLACE     = 4;
-	public static int TYPEID_ENVIRON   = 5;
+	public static int TYPEID_OBJECT    = 5;
 	public static int TYPEID_EVENT     = 6;
 	public static int TYPEID_ADJECTIVE = 7;
 	public static int TYPEID_ACTION    = 8;

@@ -39,7 +39,7 @@ public class BuildDatabase {
 				insertGenres (Global.TYPEID_GENRE);
 				insertCharacters (Global.TYPEID_CHARACTER);
 				insertPlaces (Global.TYPEID_PLACE);
-				insertEnvironments (Global.TYPEID_ENVIRON);
+				insertObjects (Global.TYPEID_OBJECT);
 				insertEvents (Global.TYPEID_EVENT);
 				insertAdjectives (Global.TYPEID_ADJECTIVE);
 				insertActions (Global.TYPEID_ACTION);
@@ -1519,7 +1519,7 @@ public class BuildDatabase {
 
 	}
 
-	private void insertEnvironments (int typeId) {
+	private void insertObjects (int typeId) {
 
 
 	}

@@ -85,7 +85,7 @@ MainActivity extends Activity {
         }
 
         Global.logcat(_tag, "onCreate(): language: pref=" +language+" locale="+ Locale.getDefault().getLanguage() +" are matching");
-        Global.logcat (_tag, "onCreate(): end");
+        Global.logcat(_tag, "onCreate(): end");
 
     }
     // onCreate()
