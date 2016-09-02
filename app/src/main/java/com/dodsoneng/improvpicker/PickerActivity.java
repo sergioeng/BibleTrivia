@@ -112,7 +112,7 @@ public class PickerActivity extends AppCompatActivity {
 
         for (int i = 0; i < _NUM_OF_ITEMS; i++) {
             _toggleButton[i].setTag(_textView[i].getId());    // save the textView ID correspondent
-            _textView[i].setTag(_itemType[i]);    // save the item type correspondent
+            _textView[i].setTag(i);    // save the item type correspondent
             _text[i] = "";
         }
 
@@ -280,8 +280,10 @@ public class PickerActivity extends AppCompatActivity {
             _fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+/*
                     Snackbar.make(view, _context.getString(R.string.msgalert1), Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
+                     */
 
                     /// Check which of the checkbuttons are checked, and then get data for them
                     updateTextViews();
@@ -299,12 +301,13 @@ public class PickerActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     TextView t = (TextView) findViewById((int) (v.getTag()));
                     int langId = Global.getLanguageId(_context);
-                    int itemType = (int) (t.getTag());
-                    int i = itemType - 1;
+//                    int itemType = (int) (t.getTag());
+//                    int i = itemType - 1;
+                    int i = (int) (t.getTag());
 
                     //is chkIos checked?
                     if (((ToggleButton) v).isChecked()) {
-                        Global.logcat(_tag, "_toggleButton=" + v.getId() + " textView=" + t.getId() + " ITEM_TYPE=" + itemType);
+                        Global.logcat(_tag, "_toggleButton=" + v.getId() + " textView=" + t.getId() + " i=" + i);
 //                        ((ToggleButton) v).setTextColor(_context.getResources().getColor(R.color.black));
                         _textView[i].setText(_text[i]);
                         _textView[i].setTextColor(_context.getResources().getColor(android.R.color.holo_blue_bright));

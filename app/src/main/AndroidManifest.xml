@@ -41,7 +41,9 @@
 
         <activity
             android:name=".AdmobActivity"
-            android:label="@string/title_activity_admob" /> <!-- Include the AdActivity configChanges and theme. -->
+            android:label="@string/title_activity_admob"
+
+            /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
