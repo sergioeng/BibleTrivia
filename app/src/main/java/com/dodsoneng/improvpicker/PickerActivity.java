@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-public class PickerActivity extends AppCompatActivity {
+public class PickerActivityOOLD extends AppCompatActivity {
 
 
     private static String _tag = Global.TAG + ".PICKACT";
@@ -65,7 +65,7 @@ public class PickerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_picker);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ;
+
         _fab = (FloatingActionButton) findViewById(R.id.fab);
         assert _fab != null;
 /*
