@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">AAAImprovPicker</string>
-    <string name="action_settings">Configuraion</string>
+    <string name="app_name">IMPRO SHOW</string>
+    <string name="action_settings">Configuracion</string>
     <string name="title_activity_admob">AdmobActivity</string>
 
     <!-- -
@@ -9,15 +9,7 @@
     <!- -->
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
-    <string name="cbox_text1">"PERSONAJE"</string>
-    <string name="cbox_text2">"EMOCIÓN"</string>
-    <string name="cbox_text3">"GÉNERO"</string>
-    <string name="cbox_text4">"LOCAL"</string>
-    <string name="cbox_text5">"OBJETO"</string>
-    <string name="cbox_text6">"ADJECTIVO"</string>
-    <string name="cbox_text7">"EVENTO"</string>
-    <string name="cbox_text8">"ACCIÓN"</string>
-    <string name="cbox_text9">"CUANDO"</string>
+    <string name="cv_scene_title_header">"TÍTULO"</string>
 
     <!-- Messages displayed to user, as alert, error, etc -->
     <string name="msgalert1">"Pulse de nuevo"</string>
