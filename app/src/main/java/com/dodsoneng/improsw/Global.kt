@@ -19,6 +19,7 @@ object Global {
     const val TYPEID_ADJECTIVE = 7
     const val TYPEID_ACTION = 8
     const val TYPEID_MOMENT = 9
+    const val TYPEDID_ARTIGO = 100
 
     fun problem(context: Context, msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show()

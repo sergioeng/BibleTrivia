@@ -167,6 +167,25 @@ class DBAdapter(private val context: Context) {
         return getItem(langId, randId, itemType)
     }
 
+    fun getRandomItemID (langId: Int, itemType: Int): Int {
+        val numOfRecords: Int
+
+        var randId = 0
+
+        numOfRecords = getNumOfRecords(langId, itemType)
+        if (numOfRecords <= 0)
+            return 0
+
+        while (randId == 0) {
+            val random = Random()
+            randId = random.nextInt(numOfRecords)
+        }
+
+        return randId
+    }
+
+
+
     companion object {
 
         private val TAG = "IMPROZE.DBADAPT"

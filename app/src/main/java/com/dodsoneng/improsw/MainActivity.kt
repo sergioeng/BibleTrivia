@@ -132,25 +132,26 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private inner class StartGame : AsyncTask<Void, Void, Void>() {
+    private inner class StartGame : AsyncTask<Void, Void, String>() {
         private var progress: ProgressDialog? = null
         internal var buildDatabase = BuildDatabase(mContext)
 
         override fun onPreExecute() {
+            super.onPreExecute()
 
             progress = ProgressDialog.show(
                 mContext, null, "Loading Data..."
             )
 
-            super.onPreExecute()
         }
 
-        override fun doInBackground(vararg params: Void): Void? {
+        override fun doInBackground(vararg params: Void): String? {
             buildDatabase.insertData()
-            return null
+            return "success"
         }
 
-        override fun onPostExecute(result: Void) {
+        override fun onPostExecute(result: String) {
+            super.onPostExecute(result)
             try {
                 val intent = Intent(mContext, PickerActivity::class.java)
                 mContext.startActivity(intent)
@@ -161,7 +162,6 @@ class MainActivity : AppCompatActivity() {
             }
 
             progress!!.dismiss()
-            super.onPostExecute(result)
         }
 
     }

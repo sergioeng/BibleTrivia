@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import com.dodsoneng.improsw.Global.TYPEDID_ARTIGO
 import com.dodsoneng.improsw.Global.TYPEID_ACTION
 import com.dodsoneng.improsw.Global.TYPEID_ADJECTIVE
 import com.dodsoneng.improsw.Global.TYPEID_CHARACTER
@@ -220,9 +221,14 @@ class PickerActivity : AppCompatActivity() {
         val tvContent = findViewById<TextView>(R.id.tvTopCardContent)
 
         when (langId) {
-            1 -> tvContent.text = "${humanA.capitalize()} $action at $place during $event"
-            2 -> tvContent.text = "${humanA.capitalize()} $action en $place durante $event"
-            3 -> tvContent.text = "${humanA.capitalize()} $action no(a) $place durante $event"
+            1 -> tvContent.text = "${humanA.capitalize()} $action at $place during $event."
+            2 -> tvContent.text = "${humanA.capitalize()} $action en $place durante $event."
+            3 -> {
+                var id = mDBAdapter!!.getRandomItemID (langId, TYPEID_PLACE)
+                place = mDBAdapter!!.getItem(langId, id, TYPEID_PLACE)
+                var artigo = mDBAdapter!!.getItem(langId, id, TYPEDID_ARTIGO)
+                tvContent.text = "${humanA.capitalize()} $action $artigo $place durante $event."
+                 }
         }
     }
 

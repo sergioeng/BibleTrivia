@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="primaryColor">#aaaaff</color>
+    <color name="primaryLightColor">#ddddff</color>
+    <color name="primaryDarkColor">#4444AA</color>
+    <color name="secondaryColor">#aaffaa</color>
+    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryDarkColor">#ffffff</color>
+    <color name="primaryTextColor">#111199</color>
+    <color name="secondaryTextColor">#111199</color>
+
+    <!--
+        <color name="primaryColor">#7b1fa2</color>
+    <color name="primaryLightColor">#ffccbc</color>
+    <color name="primaryDarkColor">#ffffff</color>
+    <color name="secondaryColor">#ff6d00</color>
+    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryDarkColor">#ffffff</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    -->
+
+    <!--
+    <color name="primaryColor">#01579B</color>
+    <color name="primaryLightColor">#ffcdd2</color>
+    <color name="primaryDarkColor">#002f6c</color>
+    <color name="secondaryColor">#01579B</color>
+    <color name="secondaryLightColor">#cccccc</color>
+    <color name="secondaryDarkColor">#707070</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
+
     <color name="primaryColor">#1565c0</color>
     <color name="primaryLightColor">#5e92f3</color>
     <color name="primaryDarkColor">#003c8f</color>
@@ -9,8 +41,7 @@
     <color name="secondaryDarkColor">#94af76</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
-
-
+    -->
 
     <!--
     <color name="primaryColor">#5d4037</color>
@@ -22,7 +53,8 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
 
-
+-->
+<!--
     <color name="primaryColor">#1565c0</color>
     <color name="primaryLightColor">#5e92f3</color>
     <color name="primaryDarkColor">#003c8f</color>
@@ -44,6 +76,6 @@
     <color name="lightGrey">#D0D0D0</color>
     <color name="white">#FBFBFB</color>
     <color name="black">#010101</color>
-    <color name="splashc1">#ffed1a06</color>
-    <color name="splashc2">#ffede23c</color>
+    <color name="splashc1">#ff6d00</color>
+    <color name="splashc2">#7b1fa2</color>
 </resources>
