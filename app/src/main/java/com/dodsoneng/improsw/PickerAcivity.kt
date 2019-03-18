@@ -3,6 +3,7 @@ package com.dodsoneng.improsw
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -13,7 +14,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import com.dodsoneng.improsw.Global.TYPEDID_ARTIGO
 import com.dodsoneng.improsw.Global.TYPEID_ACTION
 import com.dodsoneng.improsw.Global.TYPEID_ADJECTIVE
@@ -24,7 +24,13 @@ import com.dodsoneng.improsw.Global.TYPEID_GENRE
 import com.dodsoneng.improsw.Global.TYPEID_MOMENT
 import com.dodsoneng.improsw.Global.TYPEID_OBJECT
 import com.dodsoneng.improsw.Global.TYPEID_PLACE
-import java.util.Locale
+import java.util.*
+import android.os.CountDownTimer
+import android.view.SoundEffectConstants
+import android.media.ToneGenerator
+
+
+
 
 //import com.sun.org.apache.xerces.internal.dom.DOMMessageFormatter.setLocale
 
@@ -32,6 +38,10 @@ class PickerActivity : AppCompatActivity() {
 
     private var mContext: Context = this@PickerActivity
     private var mDBAdapter: DBAdapter? = null
+    private val timeDef : Long = 18
+    private var timerOn = false
+    var mTimer: CountDownTimer? = null
+
 
     /// --------------------------------------------------------------------------------------------
     /// METHODS
@@ -70,7 +80,6 @@ class PickerActivity : AppCompatActivity() {
         /// Check whether there is a language already configured in SharedPreferences.
         /// NO  --> get the device current locale and take the device language configuration
         /// YES --> use the Shared Language configuration
-        val prefLanguage = Global.getLanguagePreference(mContext)
         language = deviceLanguage
 
         Log.d(
@@ -102,6 +111,12 @@ class PickerActivity : AppCompatActivity() {
         cv8.setOnClickListener (clickListener8)
         val cv9 = findViewById<CardView>(R.id.cv9CardImage)
         cv9.setOnClickListener (clickListener9)
+
+        val cvTimer = findViewById<CardView>(R.id.cvTimer)
+        cvTimer.setOnClickListener (clickListenerTimer)
+
+        val tvContent = findViewById<TextView>(R.id.tvTimerHeader)
+        tvContent.text = "${getTimeStr(timeDef * 1000)}"
 
         Log.d(TAG, "onCreate(): end")
 
@@ -213,14 +228,16 @@ class PickerActivity : AppCompatActivity() {
 //        Toast.makeText(this, "Card pressed", Toast.LENGTH_LONG).show()
 
         var humanA = mDBAdapter!!.getRandomItem(langId, TYPEID_CHARACTER)
-        var humanB = mDBAdapter!!.getRandomItem(langId, TYPEID_CHARACTER)
+        //var humanB = mDBAdapter!!.getRandomItem(langId, TYPEID_CHARACTER)
         var action = mDBAdapter!!.getRandomItem(langId, TYPEID_ACTION)
         var place = mDBAdapter!!.getRandomItem(langId, TYPEID_PLACE)
         var event = mDBAdapter!!.getRandomItem(langId, TYPEID_EVENT)
 
         val tvContent = findViewById<TextView>(R.id.tvTopCardContent)
 
-        when (langId) {
+        val random = Random()
+        if (random.nextInt(3) == 3) {
+            when (langId) {
             1 -> tvContent.text = "${humanA.capitalize()} $action at $place during $event."
             2 -> tvContent.text = "${humanA.capitalize()} $action en $place durante $event."
             3 -> {
@@ -229,7 +246,21 @@ class PickerActivity : AppCompatActivity() {
                 var artigo = mDBAdapter!!.getItem(langId, id, TYPEDID_ARTIGO)
                 tvContent.text = "${humanA.capitalize()} $action $artigo $place durante $event."
                  }
+            }
         }
+        else {
+            when (langId) {
+                1 -> tvContent.text = "${humanA.capitalize()} at $place."
+                2 -> tvContent.text = "${humanA.capitalize()} en $place."
+                3 -> {
+                    var id = mDBAdapter!!.getRandomItemID (langId, TYPEID_PLACE)
+                    place = mDBAdapter!!.getItem(langId, id, TYPEID_PLACE)
+                    var artigo = mDBAdapter!!.getItem(langId, id, TYPEDID_ARTIGO)
+                    tvContent.text = "${humanA.capitalize()} $artigo $place."
+                }
+            }
+        }
+
     }
 
     private val clickListener1 = View.OnClickListener {view ->
@@ -304,6 +335,24 @@ class PickerActivity : AppCompatActivity() {
         tvContent.text = "$result"
     }
 
+   private val clickListenerTimer = View.OnClickListener {view ->
+        Log.d(TAG, "clickListenerTimer(): card pressed")
+
+       val tvContent = findViewById<TextView>(R.id.tvTimerHeader)
+        if (timerOn) {
+            mTimer?.cancel()
+            timerOn = false
+            tvContent.text = "${getTimeStr(timeDef * 1000)}"
+        }
+        else {
+            mTimer = timer (timeDef * 1000, 1000)
+            timerOn = true
+            mTimer?.start()
+        }
+
+
+    }
+
 
     /*
     ** ==============================
@@ -311,93 +360,50 @@ class PickerActivity : AppCompatActivity() {
     ** ==============================
      */
 
+    private fun timer (millisInFuture:Long,countDownInterval:Long):CountDownTimer{
+        val tvContent = findViewById<TextView>(R.id.tvTimerHeader)
+  //      val audioManager: AudioManager = getSystemService(Context.AUDIO_SERVICE)
+        val toneG = ToneGenerator(AudioManager.STREAM_ALARM, 100)
+        var duration = 100
+        return object: CountDownTimer(millisInFuture,countDownInterval){
+                override fun onTick(millisUntilFinished: Long) {
+                    tvContent.text = "${getTimeStr(millisUntilFinished)}"
+                    if (millisUntilFinished < 15000) {
+                        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, duration)
+//                      toneG.startTone(ToneGenerator.TONE_, duration)
+                      duration += 50
+//                    audioManager.playSoundEffect(SoundEffectConstants.CLICK, 0.7F)
+                    }
+                }
 
-    /// This method updates the main screen with new value takne randomly from database.
-    /// Only for the item that has the check box setted.
-    ///
-    private fun updateTextViews() {
-
-        var i = 0
-        val langId = Global.getLanguageId(mContext)
-
-        Log.d(TAG, "updateTextViews()")
-/*
-        while (i < _NUM_OF_ITEMS) {
-            if (_toggleButton[i].isChecked()) {
-                _text[i] = mDBAdapter!!.getRandomItem(langId, _itemType[i])
-                _textView[i].setText(_text[i])
-                _textView[i].setTextColor(mContext.resources.getColor(android.R.color.holo_blue_bright))
-            } else {
-
-                if (_text[i] == "") _text[i] = mDBAdapter!!.getRandomItem(langId, _itemType[i])
-                _textView[i].setText(_text[i])
-                _textView[i].setTextColor(mContext.resources.getColor(android.R.color.holo_orange_light))
-            }
-            i++
-
+                override fun onFinish() {
+                    tvContent.text = "${getTimeStr(timeDef)}"
+                    toneG.stopTone()
+                }
         }
-        logButtonsStatus()
-*/
     }
 
+    private fun formatNumber(value: Long): String{
+        if(value < 10)
+            return "0$value"
+        return "$value"
+    }
 
+    private fun getTimeStr(timeMilli: Long ):String {
+        var seconds = timeMilli / 1000
+        var minutes = seconds / 60
+        val hours = minutes / 60
+
+        if (minutes > 0)
+            seconds = seconds % 60
+        if (hours > 0)
+            minutes = minutes % 60
+        val time:String = formatNumber(minutes) + ":" + formatNumber(seconds)
+       return time
+    }
     /// --------------------------------------------------------------------------------------------
     /// LISTENERS
     ///---------------------------------------------------------------------------------------------
-
-    fun addListenerOnToggleButton() {
-/*
-        for (i in 0 until _NUM_OF_ITEMS) {
-            _toggleButton[i].setOnClickListener(View.OnClickListener { v ->
-                val t = findViewById<View>(v.tag as Int) as TextView
-                val langId = Global.getLanguageId(mContext)
-                //                    int itemType = (int) (t.getTag());
-                //                    int i = itemType - 1;
-                val i = t.tag as Int
-
-                //is chkIos checked?
-                if ((v as ToggleButton).isChecked) {
-                    Log.d(TAG, "_toggleButton=" + v.getId() + " textView=" + t.id + " i=" + i)
-                    //                        ((ToggleButton) v).setTextColor(mContext.getResources().getColor(R.color.black));
-                    _textView[i].setText(_text[i])
-                    _textView[i].setTextColor(mContext!!.resources.getColor(android.R.color.holo_blue_bright))
-                } else {
-                    _textView[i].setText(_text[i])
-                    _textView[i].setTextColor(mContext!!.resources.getColor(android.R.color.holo_orange_light))
-                    //((ToggleButton) v).setTextColor(mContext.getResources().getColor(android.R.color.holo_orange_light));
-                }
-            })
-
-        }
-*/
-    }
-
-    private fun logButtonsStatus() {
-    /*
-        var i: Int
-        i = 0
-        while (i < _NUM_OF_ITEMS) {
-
-            if (_toggleButton[i].isChecked()) {
-                Log.d(
-                    TAG, "CHECKED   " +
-                            " isFocused=" + _toggleButton[i].isFocused() +
-                            " isSelected=" + _toggleButton[i].isSelected() +
-                            " button=[" + _text[i] + "]"
-                )
-            } else {
-                Log.d(
-                    TAG, "UNCHECKED " +
-                            " isFocused=" + _toggleButton[i].isFocused() +
-                            " isSelected=" + _toggleButton[i].isSelected() +
-                            " button=[" + _text[i] + "]"
-                )
-            }
-            i++
-        }
-    */
-    }
-
 
     private inner class StartGame : AsyncTask<Void, Void, Void>() {
         private var progress: ProgressDialog? = null
@@ -414,30 +420,10 @@ class PickerActivity : AppCompatActivity() {
             buildDatabase.insertData()
             return null
         }
-        /*
-        @Override
-        protected void onPostExecute(Void result) {
-            try {
-                Intent intent = new Intent(mContext, TriviaActivity.class);
-                mContext.startActivity(intent);
-                finish();
-            }
-            catch (Exception ex)
-            {
-                de.printff (ex.toString());
-            }
-            progress.dismiss();
-            super.onPostExecute(result);
-        }
-*/
     }
 
     companion object {
-
-
-        private val TAG = "IMPROZE.PICKACT"
-        private val _NUM_OF_ITEMS = 9
+        private const val TAG = "IMPROZE.PICKACT"
     }
-
 
 }
